@@ -1,0 +1,5 @@
+# C:\docker\logstash.yml
+node.name: logstash
+path.data: /usr/share/logstash/data
+path.logs: /usr/share/logstash/logs
+log.level: info

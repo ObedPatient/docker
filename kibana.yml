@@ -1,0 +1,11 @@
+xpack.security.authc.providers:
+  basic.basic1:
+    order: 0
+    description: "Log in with username and password"
+xpack.security.authc.selector.enabled: true
+xpack.security.loginHelp: "Contact the administrator for login assistance."
+elasticsearch.username: "kibana_system"
+elasticsearch.password: "Rwanda495"
+xpack.encryptedSavedObjects.encryptionKey: 05072ae00966a9b303ae1735c3508145
+xpack.reporting.encryptionKey: 503390916a8c40f2953a38ca9f13a7e4
+xpack.security.encryptionKey: 0d268a552bc25cb43aed2e7da5ff2c14
