@@ -22,7 +22,7 @@ services:
   logstash:
     image: docker.elastic.co/logstash/logstash:8.14.3
     container_name: logstash
-    user: root  # Keep temporarily
+    user: root  
     volumes:
       - C:/docker/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
       - C:/docker/postgresql-42.7.3.jar:/usr/share/logstash/postgresql.jar
