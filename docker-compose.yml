@@ -22,12 +22,12 @@ services:
   logstash:
     image: docker.elastic.co/logstash/logstash:8.14.3
     container_name: logstash
-    user: root  
+    user: root
     volumes:
-      - C:/docker/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
-      - C:/docker/postgresql-42.7.3.jar:/usr/share/logstash/postgresql.jar
-      - C:/docker/logstash.yml:/usr/share/logstash/config/logstash.yml
-      - C:/docker/logstash-data:/usr/share/logstash/data
+      - E:/docker/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro
+      - E:/docker/postgresql-42.7.3.jar:/usr/share/logstash/postgresql.jar:ro
+      - E:/docker/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
+      - E:/docker/logstash-data:/usr/share/logstash/data
     ports:
       - 5000:5000
     depends_on:
