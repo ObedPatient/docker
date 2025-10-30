@@ -19,6 +19,7 @@ services:
       start_period: 60s
     networks:
       - elk-network
+
   logstash:
     image: docker.elastic.co/logstash/logstash:8.14.3
     container_name: logstash
@@ -30,6 +31,11 @@ services:
       - E:/docker/logstash-data:/usr/share/logstash/data
     ports:
       - 5000:5000
+    environment:
+      - JDBC_CONNECTION_STRING=${JDBC_CONNECTION_STRING}
+      - JDBC_USER=${JDBC_USER}
+      - JDBC_PASSWORD=${JDBC_PASSWORD}
+      - ELASTICSEARCH_HOSTS=${ELASTICSEARCH_HOSTS}
     depends_on:
       elasticsearch:
         condition: service_healthy
@@ -42,6 +48,7 @@ services:
     networks:
       - elk-network
     restart: always
+
   kibana:
     image: docker.elastic.co/kibana/kibana:8.14.3
     container_name: kibana
@@ -60,6 +67,7 @@ services:
       start_period: 60s
     networks:
       - elk-network
+
   kafka:
     image: wurstmeister/kafka
     container_name: kafka
@@ -72,6 +80,7 @@ services:
       - zookeeper
     networks:
       - elk-network
+
   zookeeper:
     image: wurstmeister/zookeeper
     container_name: zookeeper
@@ -79,8 +88,33 @@ services:
       - 2181:2181
     networks:
       - elk-network
+
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    ports:
+      - 9000:9000
+      - 9001:9001
+    environment:
+      - MINIO_ROOT_USER=admin
+      - MINIO_ROOT_PASSWORD=admin1234
+    volumes:
+      - minio-data:/data
+    command: server /data --console-address ":9001"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9001/minio/health/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - elk-network
+    restart: always
+
 networks:
   elk-network:
     driver: bridge
+
 volumes:
   esdata:
+  minio-data:

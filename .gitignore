@@ -1,0 +1,6 @@
+# Ignore sensitive files
+.env
+*.log
+logstash-data/
+# Docker volumes/data
+esdata/
